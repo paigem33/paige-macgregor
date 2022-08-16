@@ -1,26 +1,35 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <Header/>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+
+import Header from './components/Header.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    Header
+  }, 
+  methods: {
+    scrollTo(element) {
+      if (element == "home") {
+        this.$router.push(`/`).catch(()=>{});
+        window.scrollTo({ top: -80, behavior: "smooth" });
+      } else {
+        var elementPosition = document.getElementById(element).offsetTop;
+        window.scrollTo({ top: elementPosition - 35, behavior: "smooth" });
+        if (this.$router.history.current.path !== `/${element}`)
+          this.$router.push(`/${element}`);
+      }
+    },
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+body {
+  margin: 0;
+  padding: 0;
 }
 </style>
